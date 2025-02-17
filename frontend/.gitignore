@@ -24,6 +24,9 @@ yarn-error.log*
 
 # Ignore Python virtual environment and site-packages
 venv/
+*.dll
+*.lib
+
 Lib/
 bin/
 Include/

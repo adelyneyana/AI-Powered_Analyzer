@@ -39,8 +39,8 @@ Ensure you have the following installed on your system:
 
 - Clone the backend repository using:
   ```bash
-  git clone https://github.com/yourusername/ai-resume-analysis.git
-  cd ai-resume-analysis/backend
+  git clone https://github.com/adelyneyana/AI-Powered_Analyzer.git
+  cd AI-Powered_Analyzer/backend
   ```
 
 ### 2. Install Dependencies
