@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# AI-Powered Resume & Interview Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Description:**  
+This project is an AI-powered system that evaluates job applicants by analyzing their resumes and interview sentiment. It uses a fine-tuned BERT model for resume classification, VADER sentiment analysis for interview assessment, and Google Text-to-Speech (TTS) to generate an audio response. The backend is built with Flask and integrates with machine learning models for automated decision-making.
 
-## Available Scripts
+## Table of Contents
+1. Prerequisites  
+2. Backend Setup (Flask)  
+   - Clone Repository  
+   - Install Dependencies  
+   - Set Up Environment Variables  
+   - Run the Flask Server  
+3. Model Training & Fine-Tuning  
+   - Train the BERT Model for Resume Analysis  
+4. API Endpoints & Testing  
+   - Testing with Postman/Thunder Client  
+5. Push Updates to the Repository
 
-In the project directory, you can run:
+## Prerequisites
+Ensure you have the following installed on your system:
 
-### `npm start`
+- **Python** (v3.8 or higher)
+- **pip** (Python package manager)
+- **Virtual Environment (venv)**
+- **Flask** (for backend API)
+  - Install with `pip install flask`
+- **Transformers (Hugging Face)**
+  - Install with `pip install transformers`
+- **Torch (PyTorch for deep learning)**
+  - Install with `pip install torch`
+- **NLTK & VADER Sentiment Analyzer**
+  - Install with `pip install nltk`
+- **Google Cloud Text-to-Speech API**
+  - Requires authentication JSON key
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Backend Setup (Flask)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Clone Repository
 
-### `npm test`
+- Clone the backend repository using:
+  ```bash
+  git clone https://github.com/yourusername/ai-resume-analysis.git
+  cd ai-resume-analysis/backend
+  ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Install Dependencies
 
-### `npm run build`
+- Create a virtual environment and activate it:
+  ```bash
+  python -m venv venv
+  .\venv\Scripts\activate  # Windows
+  source venv/bin/activate  # macOS/Linux
+  ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Install dependencies:
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Set Up Environment Variables
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Set your Google Cloud API key path in your system or manually in your script:
+  ```bash
+  export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/service-account.json"  # macOS/Linux
+  set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\Intern\ai_ml_env\backend\your-key.json  # Windows
+  ```
 
-### `npm run eject`
+### 4. Run the Flask Server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Start the Flask server:
+  ```bash
+  python app.py
+  ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- The server will be accessible at `http://127.0.0.1:5000`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Model Training & Fine-Tuning
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Train the BERT Model for Resume Analysis
+If you haven't trained your BERT model yet, follow these steps:
 
-## Learn More
+1. **Prepare a labeled dataset** (e.g., `data/resume_data.csv`) with two columns:
+   - `text`: Resume text
+   - `label`: 0 (Not Suitable) or 1 (Good Applicant)
+2. **Run the training script:**
+   ```bash
+   python train_bert.py
+   ```
+3. **The trained model will be saved in:** `bert_resume_classifier/`
+4. **Verify that the directory contains:**
+   ```
+   bert_resume_classifier/
+   ├── config.json
+   ├── pytorch_model.bin
+   ├── tokenizer.json
+   ├── vocab.txt
+   ├── special_tokens_map.json
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## API Endpoints & Testing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1. **Submit Resume & Interview Transcript**
+- **Endpoint:** `POST /submit_resume`
+- **Request Body:**
+  ```json
+  {
+    "resume_text": "Experienced software developer with expertise in AI and Python.",
+    "interview_transcript": "The candidate demonstrated strong technical skills and good communication."
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "resume_result": "Good applicant",
+    "interview_sentiment": "Positive sentiment",
+    "final_decision": "Congratulations, you have been selected for the job!",
+    "audio_url": "/static/final_decision.mp3"
+  }
+  ```
 
-### Code Splitting
+### 2. **Testing with Thunder Client (VS Code) or Postman**
+1. Install **Thunder Client** extension in VS Code.
+2. Open Thunder Client and create a **new POST request**.
+3. Set **Request URL** to `http://127.0.0.1:5000/submit_resume`.
+4. Choose **Body → JSON**, and paste the sample request.
+5. Click **Send** to receive the decision.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Push Updates to the Repository
 
-### Analyzing the Bundle Size
+Before pushing changes, always pull the latest updates.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 1. Pull Latest Changes
+```bash
+  git pull origin main
+```
 
-### Making a Progressive Web App
+### 2. Push Your Changes
+```bash
+  git add .
+  git commit -m "Updated resume classifier and API improvements"
+  git push origin main
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

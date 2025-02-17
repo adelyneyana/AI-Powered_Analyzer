@@ -1,0 +1,12 @@
+flask
+flask-cors
+numpy
+pandas
+nltk
+torch
+transformers
+scikit-learn
+supabase
+textblob
+pydub
+ffmpeg
