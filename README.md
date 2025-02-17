@@ -62,7 +62,7 @@ Ensure you have the following installed on your system:
 - Set your Google Cloud API key path in your system or manually in your script:
   ```bash
   export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/service-account.json"  # macOS/Linux
-  set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\Intern\ai_ml_env\backend\your-key.json  # Windows
+  set GOOGLE_APPLICATION_CREDENTIALS=C:/path/to/your/service-account/your-key.json  # Windows
   ```
 
 ### 4. Run the Flask Server
@@ -131,13 +131,13 @@ Before pushing changes, always pull the latest updates.
 
 ### 1. Pull Latest Changes
 ```bash
-  git pull origin main
+  git pull origin master
 ```
 
 ### 2. Push Your Changes
 ```bash
   git add .
   git commit -m "Updated resume classifier and API improvements"
-  git push origin main
+  git push origin master
 ```
 
